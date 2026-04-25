@@ -1,0 +1,79 @@
+<div class="toolbar">
+  <button class="btn btn-outline-secondary" (click)="exportToExcel()">
+    <i class="pi pi-file-excel me-2"></i>Export Excel
+  </button>
+  <button class="btn btn-primary" (click)="openCreateDialog()">
+    <i class="pi pi-plus me-2"></i>Add Employee
+  </button>
+</div>
+
+<ag-grid-angular
+  [rowData]="users()"
+  [columnDefs]="colDefs"
+  [gridOptions]="gridOptions"
+  [theme]="theme"
+  style="height: 600px; width: 100%;"
+/>
+
+<p-dialog
+  [header]="isEditing() ? 'Edit Employee' : 'Add Employee'"
+  [visible]="dialogVisible()"
+  (visibleChange)="dialogVisible.set($event)"
+  [modal]="true"
+  [style]="{ width: '480px' }"
+  [draggable]="false"
+>
+  <div class="row g-3">
+
+    <div class="col-6">
+      <label class="form-label">Name <span class="text-danger">*</span></label>
+      <input pInputText [formField]="employeeForm.name" class="w-100" placeholder="Full name" />
+      @if (employeeForm.name().errors() && employeeForm.name().touched()) {
+        @for (error of employeeForm.name().errors(); track error.kind) {
+          <small class="p-error">{{ error.message }}</small>
+        }
+      }
+    </div>
+
+    <div class="col-6">
+      <label class="form-label">Username <span class="text-danger">*</span></label>
+      <input pInputText [formField]="employeeForm.username" class="w-100" placeholder="username" />
+      @if (employeeForm.username().errors() && employeeForm.username().touched()) {
+        @for (error of employeeForm.username().errors(); track error.kind) {
+          <small class="p-error">{{ error.message }}</small>
+        }
+      }
+    </div>
+
+    <div class="col-12">
+      <label class="form-label">Email <span class="text-danger">*</span></label>
+      <input pInputText [formField]="employeeForm.email" type="email" class="w-100" placeholder="email@example.com" />
+      @if (employeeForm.email().errors() && employeeForm.email().touched()) {
+        @for (error of employeeForm.email().errors(); track error.kind) {
+          <small class="p-error">{{ error.message }}</small>
+        }
+      }
+    </div>
+
+    <div class="col-6">
+      <label class="form-label">Phone</label>
+      <input pInputText [formField]="employeeForm.phone" class="w-100" placeholder="+1-555-000-0000" />
+    </div>
+
+    <div class="col-6">
+      <label class="form-label">Company</label>
+      <input pInputText [formField]="employeeForm.company" class="w-100" placeholder="Company name" />
+    </div>
+
+    <div class="col-12">
+      <label class="form-label">Country</label>
+      <input pInputText [formField]="employeeForm.country" class="w-100" placeholder="Country" />
+    </div>
+
+  </div>
+
+  <ng-template #footer>
+    <p-button label="Cancel" severity="secondary" (onClick)="dialogVisible.set(false)" />
+    <p-button label="Save" (onClick)="saveUser()" [disabled]="formInvalid()" />
+  </ng-template>
+</p-dialog>

@@ -1,0 +1,54 @@
+
+<form action="" (click)="submit($event)">
+
+<div class="p-fluid">
+  <div class="field">
+    <label>Email</label>
+    <input pInputText [formField]="loginForm.email" type="email" />
+  </div>
+  @if(loginForm.email().errors()&&loginForm.email().touched()){
+  @for(error of loginForm.email().errors();track error.kind){
+
+  @if(error.kind=='required'){ <small class="p-error">{{error.message}}</small> }
+
+  <!--      <small class="p-error">{{error.message}}</small>
+ -->
+  }
+  }
+
+  <div class="field">
+    <label>Password</label>
+    <input pPassword [formField]="loginForm.password" />
+    @if(loginForm.password().errors()&&loginForm.password().touched()){
+       @for(error of loginForm.password().errors(); track error.kind){
+         @if(error.kind=='required'){  <small class="p-error">{{error.message}}</small>}
+       }
+    }
+    <small></small>
+  </div>
+
+  <button pButton label="+" (click)="addNewLink()"></button>
+
+  @for (item of loginModel().socialLinks;track $index) {
+  <input pInputText [formField]="loginForm.socialLinks[$index]" />
+  <button pButton label="x" (click)="removeLink($index)"></button>
+
+  @let formItem=loginForm.socialLinks[$index];
+
+  @if(formItem().errors()&&formItem().touched()){
+
+  @for(error of formItem().errors(); track error.kind){
+  <small class="p-error">{{error.message}}</small>
+  }
+
+  }
+
+
+  <br />
+
+  }
+
+
+  <button pButton label="Login" type="submit"></button>
+</div>
+</form>
