@@ -1,75 +1,130 @@
-<div class="toolbar">
-  <button class="btn btn-outline-secondary" (click)="exportToExcel()">
-    <i class="pi pi-file-excel me-2"></i>Export Excel
-  </button>
-  <button class="btn btn-primary" (click)="openCreateDialog()">
-    <i class="pi pi-plus me-2"></i>Add Employee
-  </button>
+<!-- ── Page header ── -->
+<div class="page-header">
+  <div>
+    <h1 class="page-title">Employees</h1>
+    <p class="page-subtitle">Manage your organization's employee records</p>
+  </div>
 </div>
 
-<ag-grid-angular
-  [rowData]="users()"
-  [columnDefs]="colDefs"
-  [gridOptions]="gridOptions"
-  [theme]="theme"
-  style="height: 600px; width: 100%;"
-/>
+<!-- ── Stat cards ── -->
+<div class="stat-grid">
 
+  <div class="stat-card">
+    <div class="stat-icon stat-icon--indigo">
+      <i class="pi pi-users"></i>
+    </div>
+    <div class="stat-body">
+      <div class="stat-value">{{ users().length }}</div>
+      <div class="stat-label">Total Employees</div>
+    </div>
+  </div>
+
+  <div class="stat-card">
+    <div class="stat-icon stat-icon--green">
+      <i class="pi pi-check-circle"></i>
+    </div>
+    <div class="stat-body">
+      <div class="stat-value">{{ users().length }}</div>
+      <div class="stat-label">Active</div>
+    </div>
+  </div>
+
+  <div class="stat-card">
+    <div class="stat-icon stat-icon--blue">
+      <i class="pi pi-building"></i>
+    </div>
+    <div class="stat-body">
+      <div class="stat-value">{{ companiesCount() }}</div>
+      <div class="stat-label">Companies</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── Table card ── -->
+<div class="table-card">
+
+  <div class="table-toolbar">
+    <span class="toolbar-title">All Employees</span>
+    <div class="toolbar-actions">
+      <button class="btn btn-sm btn-outline-secondary" (click)="exportToExcel()">
+        <i class="pi pi-file-excel me-1"></i>Export
+      </button>
+      <button class="btn btn-sm btn-primary" (click)="openCreateDialog()">
+        <i class="pi pi-plus me-1"></i>Add Employee
+      </button>
+    </div>
+  </div>
+
+  <ag-grid-angular
+    [rowData]="users()"
+    [columnDefs]="colDefs"
+    [gridOptions]="gridOptions"
+    [theme]="theme"
+    style="height: 540px; width: 100%;"
+  />
+
+</div>
+
+<!-- ── Dialog ── -->
 <p-dialog
   [header]="isEditing() ? 'Edit Employee' : 'Add Employee'"
   [visible]="dialogVisible()"
   (visibleChange)="dialogVisible.set($event)"
   [modal]="true"
-  [style]="{ width: '480px' }"
+  [style]="{ width: '520px' }"
   [draggable]="false"
 >
-  <div class="row g-3">
+  <div class="dialog-form">
 
-    <div class="col-6">
-      <label class="form-label">Name <span class="text-danger">*</span></label>
-      <input pInputText [formField]="employeeForm.name" class="w-100" placeholder="Full name" />
-      @if (employeeForm.name().errors() && employeeForm.name().touched()) {
-        @for (error of employeeForm.name().errors(); track error.kind) {
-          <small class="p-error">{{ error.message }}</small>
+    <div class="row g-3">
+
+      <div class="col-6">
+        <label class="dialog-label">Name <span class="req">*</span></label>
+        <input pInputText [formField]="employeeForm.name" class="w-100" placeholder="Full name" />
+        @if (employeeForm.name().errors() && employeeForm.name().touched()) {
+          @for (error of employeeForm.name().errors(); track error.kind) {
+            <small class="p-error">{{ error.message }}</small>
+          }
         }
-      }
-    </div>
+      </div>
 
-    <div class="col-6">
-      <label class="form-label">Username <span class="text-danger">*</span></label>
-      <input pInputText [formField]="employeeForm.username" class="w-100" placeholder="username" />
-      @if (employeeForm.username().errors() && employeeForm.username().touched()) {
-        @for (error of employeeForm.username().errors(); track error.kind) {
-          <small class="p-error">{{ error.message }}</small>
+      <div class="col-6">
+        <label class="dialog-label">Username <span class="req">*</span></label>
+        <input pInputText [formField]="employeeForm.username" class="w-100" placeholder="username" />
+        @if (employeeForm.username().errors() && employeeForm.username().touched()) {
+          @for (error of employeeForm.username().errors(); track error.kind) {
+            <small class="p-error">{{ error.message }}</small>
+          }
         }
-      }
-    </div>
+      </div>
 
-    <div class="col-12">
-      <label class="form-label">Email <span class="text-danger">*</span></label>
-      <input pInputText [formField]="employeeForm.email" type="email" class="w-100" placeholder="email@example.com" />
-      @if (employeeForm.email().errors() && employeeForm.email().touched()) {
-        @for (error of employeeForm.email().errors(); track error.kind) {
-          <small class="p-error">{{ error.message }}</small>
+      <div class="col-12">
+        <label class="dialog-label">Email <span class="req">*</span></label>
+        <input pInputText [formField]="employeeForm.email" type="email" class="w-100" placeholder="email@example.com" />
+        @if (employeeForm.email().errors() && employeeForm.email().touched()) {
+          @for (error of employeeForm.email().errors(); track error.kind) {
+            <small class="p-error">{{ error.message }}</small>
+          }
         }
-      }
-    </div>
+      </div>
 
-    <div class="col-6">
-      <label class="form-label">Phone</label>
-      <input pInputText [formField]="employeeForm.phone" class="w-100" placeholder="+1-555-000-0000" />
-    </div>
+      <div class="col-6">
+        <label class="dialog-label">Phone</label>
+        <input pInputText [formField]="employeeForm.phone" class="w-100" placeholder="+1-555-000-0000" />
+      </div>
 
-    <div class="col-6">
-      <label class="form-label">Company</label>
-      <input pInputText [formField]="employeeForm.company" class="w-100" placeholder="Company name" />
-    </div>
+      <div class="col-6">
+        <label class="dialog-label">Company</label>
+        <input pInputText [formField]="employeeForm.company" class="w-100" placeholder="Company name" />
+      </div>
 
-    <div class="col-12">
-      <label class="form-label">Country</label>
-      <input pInputText [formField]="employeeForm.country" class="w-100" placeholder="Country" />
-    </div>
+      <div class="col-12">
+        <label class="dialog-label">Country</label>
+        <input pInputText [formField]="employeeForm.country" class="w-100" placeholder="Country" />
+      </div>
 
+    </div>
   </div>
 
   <ng-template #footer>

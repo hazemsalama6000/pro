@@ -1,34 +1,82 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" (click)="setLang('ar')">Ar</a></li>
-            <li><a class="dropdown-item" (click)="setLang('en')">En</a></li>
-          </ul>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled">Disabled</a>
-        </li>
-      </ul>
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
+<header class="app-header">
+  <div class="header-inner">
+
+    <!-- Brand -->
+    <a class="header-brand" routerLink="/employee/employees">
+      <div class="brand-icon">
+        <i class="pi pi-users"></i>
+      </div>
+      <span class="brand-name">WorkForce Pro</span>
+    </a>
+
+    <!-- Navigation -->
+    <nav class="header-nav">
+      <a
+        class="nav-item"
+        routerLink="/employee/employees"
+        routerLinkActive="active"
+      >
+        <i class="pi pi-th-large"></i>
+        <span>Dashboard</span>
+      </a>
+      <a
+        class="nav-item"
+        routerLink="/employee/employees"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: false }"
+      >
+        <i class="pi pi-users"></i>
+        <span>Employees</span>
+      </a>
+    </nav>
+
+    <!-- Right actions -->
+    <div class="header-actions">
+
+      <!-- Language switcher -->
+      <div class="dropdown">
+        <button class="icon-btn dropdown-toggle" data-bs-toggle="dropdown" aria-label="Language" title="Switch language">
+          <i class="pi pi-globe"></i>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end lang-menu">
+          <li>
+            <a class="dropdown-item" (click)="setLang('en')">
+              <span class="lang-flag">🇺🇸</span> English
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item" (click)="setLang('ar')">
+              <span class="lang-flag">🇸🇦</span> العربية
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- User menu -->
+      <div class="dropdown">
+        <button class="user-trigger dropdown-toggle" data-bs-toggle="dropdown">
+          <div class="user-avatar">{{ userInitial() }}</div>
+          <span class="user-display-name">{{ userName() }}</span>
+          <i class="pi pi-angle-down chevron"></i>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end user-dropdown">
+          <li class="user-dropdown-profile">
+            <div class="profile-avatar">{{ userInitial() }}</div>
+            <div class="profile-info">
+              <div class="profile-name">{{ userName() }}</div>
+              <div class="profile-role">Administrator</div>
+            </div>
+          </li>
+          <li><hr class="dropdown-divider my-1" /></li>
+          <li>
+            <a class="dropdown-item logout-item" (click)="logout()">
+              <i class="pi pi-sign-out"></i>
+              Sign out
+            </a>
+          </li>
+        </ul>
+      </div>
+
     </div>
   </div>
-</nav>
+</header>

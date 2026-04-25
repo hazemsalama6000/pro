@@ -44,6 +44,10 @@ export class EmployeesComponent implements OnInit {
     !!this.employeeForm.email().errors()?.length
   );
 
+  companiesCount = computed(() =>
+    new Set(this.users().map(u => u.company).filter(Boolean)).size
+  );
+
   colDefs: ColDef<IUser>[] = [
     { field: 'name',     headerName: 'Name',     flex: 1,   filter: true },
     { field: 'username', headerName: 'Username', flex: 1,   filter: true },

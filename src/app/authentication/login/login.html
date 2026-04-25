@@ -1,54 +1,122 @@
+<div class="auth-page">
 
-<form action="" (click)="submit($event)">
+  <!-- ── Left branding panel ── -->
+  <aside class="auth-left">
+    <div class="auth-left-content">
+      <div class="brand-lockup">
+        <div class="brand-icon">
+          <i class="pi pi-users"></i>
+        </div>
+        <span class="brand-name">WorkForce Pro</span>
+      </div>
 
-<div class="p-fluid">
-  <div class="field">
-    <label>Email</label>
-    <input pInputText [formField]="loginForm.email" type="email" />
-  </div>
-  @if(loginForm.email().errors()&&loginForm.email().touched()){
-  @for(error of loginForm.email().errors();track error.kind){
+      <div class="auth-hero">
+        <h1>Manage your team with confidence</h1>
+        <p>All your employee data in one secure, modern platform built for growing organizations.</p>
+      </div>
 
-  @if(error.kind=='required'){ <small class="p-error">{{error.message}}</small> }
+      <ul class="auth-features">
+        <li>
+          <span class="feature-dot"><i class="pi pi-check"></i></span>
+          <span>Centralized employee directory</span>
+        </li>
+        <li>
+          <span class="feature-dot"><i class="pi pi-check"></i></span>
+          <span>Real-time data synchronization</span>
+        </li>
+        <li>
+          <span class="feature-dot"><i class="pi pi-check"></i></span>
+          <span>Enterprise-grade security</span>
+        </li>
+        <li>
+          <span class="feature-dot"><i class="pi pi-check"></i></span>
+          <span>Excel export &amp; reporting</span>
+        </li>
+      </ul>
+    </div>
+  </aside>
 
-  <!--      <small class="p-error">{{error.message}}</small>
- -->
-  }
-  }
+  <!-- ── Right form panel ── -->
+  <main class="auth-right">
+    <div class="auth-card">
+      <div class="auth-card-header">
+        <h2>Welcome back</h2>
+        <p>Sign in to your account to continue</p>
+      </div>
 
-  <div class="field">
-    <label>Password</label>
-    <input pPassword [formField]="loginForm.password" />
-    @if(loginForm.password().errors()&&loginForm.password().touched()){
-       @for(error of loginForm.password().errors(); track error.kind){
-         @if(error.kind=='required'){  <small class="p-error">{{error.message}}</small>}
-       }
-    }
-    <small></small>
-  </div>
+      <form action="" (click)="submit($event)" class="auth-form">
 
-  <button pButton label="+" (click)="addNewLink()"></button>
+        <div class="field-group">
+          <label class="field-label" for="email">Email address</label>
+          <input
+            id="email"
+            pInputText
+            [formField]="loginForm.email"
+            type="email"
+            placeholder="you@company.com"
+            class="w-100"
+          />
+          @if (loginForm.email().errors() && loginForm.email().touched()) {
+            @for (error of loginForm.email().errors(); track error.kind) {
+              @if (error.kind === 'required') {
+                <small class="field-error">
+                  <i class="pi pi-exclamation-circle"></i> {{ error.message }}
+                </small>
+              }
+            }
+          }
+        </div>
 
-  @for (item of loginModel().socialLinks;track $index) {
-  <input pInputText [formField]="loginForm.socialLinks[$index]" />
-  <button pButton label="x" (click)="removeLink($index)"></button>
+        <div class="field-group">
+          <label class="field-label" for="password">Password</label>
+          <input
+            id="password"
+            pPassword
+            [formField]="loginForm.password"
+            placeholder="Your password"
+            class="w-100"
+          />
+          @if (loginForm.password().errors() && loginForm.password().touched()) {
+            @for (error of loginForm.password().errors(); track error.kind) {
+              @if (error.kind === 'required') {
+                <small class="field-error">
+                  <i class="pi pi-exclamation-circle"></i> {{ error.message }}
+                </small>
+              }
+            }
+          }
+        </div>
 
-  @let formItem=loginForm.socialLinks[$index];
+        @if (loginModel().socialLinks.length > 0) {
+          <div class="social-links-section">
+            <label class="field-label">Social links</label>
+            @for (item of loginModel().socialLinks; track $index) {
+              <div class="social-link-row">
+                <input pInputText [formField]="loginForm.socialLinks[$index]" placeholder="https://..." class="w-100" />
+                <button type="button" class="btn-remove" (click)="removeLink($index)" title="Remove">
+                  <i class="pi pi-times"></i>
+                </button>
+              </div>
+              @let formItem = loginForm.socialLinks[$index];
+              @if (formItem().errors() && formItem().touched()) {
+                @for (error of formItem().errors(); track error.kind) {
+                  <small class="field-error">{{ error.message }}</small>
+                }
+              }
+            }
+          </div>
+        }
 
-  @if(formItem().errors()&&formItem().touched()){
+        <button type="button" class="btn-add-link" (click)="addNewLink()">
+          <i class="pi pi-plus"></i> Add social link
+        </button>
 
-  @for(error of formItem().errors(); track error.kind){
-  <small class="p-error">{{error.message}}</small>
-  }
+        <button type="submit" class="auth-submit-btn">
+          <i class="pi pi-sign-in me-2"></i>Sign in
+        </button>
 
-  }
+      </form>
+    </div>
+  </main>
 
-
-  <br />
-
-  }
-
-
-  <button pButton label="Login" type="submit"></button>
 </div>
-</form>

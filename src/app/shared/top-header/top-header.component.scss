@@ -1,0 +1,239 @@
+// ─── Header shell ─────────────────────────────────────────────────────────────
+:host {
+  display: block;
+}
+
+.app-header {
+  height: 60px;
+  background: var(--app-surface-0);
+  border-bottom: 1px solid var(--app-surface-200);
+  box-shadow: var(--app-shadow-sm);
+  position: sticky;
+  top: 0;
+  z-index: 200;
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 0 1.5rem;
+  gap: 1.5rem;
+}
+
+// ─── Brand ────────────────────────────────────────────────────────────────────
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  text-decoration: none;
+  color: var(--app-text-900);
+  flex-shrink: 0;
+
+  .brand-icon {
+    width: 34px;
+    height: 34px;
+    background: var(--app-brand-600);
+    border-radius: var(--app-radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    i { color: white; font-size: 1rem; }
+  }
+
+  .brand-name {
+    font-size: 0.9375rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+}
+
+// ─── Nav ──────────────────────────────────────────────────────────────────────
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.125rem;
+  flex: 1;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4375rem 0.875rem;
+  border-radius: var(--app-radius-sm);
+  text-decoration: none;
+  color: var(--app-text-500);
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: color 0.15s, background 0.15s;
+
+  i { font-size: 0.875rem; }
+
+  &:hover {
+    color: var(--app-text-900);
+    background: var(--app-surface-100);
+    text-decoration: none;
+  }
+
+  &.active {
+    color: var(--app-brand-600);
+    background: var(--app-brand-50);
+  }
+}
+
+// ─── Right actions ────────────────────────────────────────────────────────────
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  margin-left: auto;
+}
+
+.icon-btn {
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--app-surface-200);
+  border-radius: var(--app-radius-sm);
+  background: transparent;
+  color: var(--app-text-500);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s;
+
+  &::after { display: none; }
+
+  i { font-size: 0.9rem; }
+
+  &:hover { background: var(--app-surface-100); color: var(--app-text-900); }
+}
+
+// ─── Language dropdown ────────────────────────────────────────────────────────
+.lang-menu {
+  min-width: 150px;
+  padding: 0.25rem;
+
+  .dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: var(--app-radius-sm);
+    font-size: 0.875rem;
+    cursor: pointer;
+    padding: 0.4375rem 0.625rem;
+
+    &:hover { background: var(--app-surface-100); }
+  }
+
+  .lang-flag { font-size: 1rem; }
+}
+
+// ─── User trigger ─────────────────────────────────────────────────────────────
+.user-trigger {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+  border: 1px solid var(--app-surface-200);
+  border-radius: var(--app-radius-sm);
+  padding: 0.3125rem 0.625rem;
+  cursor: pointer;
+  color: var(--app-text-700);
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.15s;
+
+  &::after { display: none; }
+
+  &:hover { background: var(--app-surface-100); }
+}
+
+.user-avatar {
+  width: 26px;
+  height: 26px;
+  background: var(--app-brand-500);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.user-display-name {
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chevron {
+  font-size: 0.7rem;
+  color: var(--app-text-300);
+}
+
+// ─── User dropdown ────────────────────────────────────────────────────────────
+.user-dropdown {
+  min-width: 230px;
+  padding: 0.375rem;
+  border: 1px solid var(--app-surface-200);
+  box-shadow: var(--app-shadow-lg);
+  border-radius: var(--app-radius-md);
+
+  .user-dropdown-profile {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.625rem 0.625rem 0.75rem;
+  }
+
+  .profile-avatar {
+    width: 38px;
+    height: 38px;
+    background: var(--app-brand-500);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.875rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .profile-name {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--app-text-900);
+    line-height: 1.3;
+  }
+
+  .profile-role {
+    font-size: 0.75rem;
+    color: var(--app-text-500);
+    margin-top: 0.125rem;
+  }
+
+  .dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: var(--app-radius-sm);
+    font-size: 0.875rem;
+    padding: 0.4375rem 0.625rem;
+    cursor: pointer;
+
+    &:hover { background: var(--app-surface-100); }
+  }
+
+  .logout-item {
+    color: #dc2626;
+
+    &:hover { background: #fef2f2; color: #dc2626; }
+  }
+}

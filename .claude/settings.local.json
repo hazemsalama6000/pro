@@ -6,7 +6,9 @@
       "Bash(taskkill /F /IM node.exe)",
       "Bash(cmd:*)",
       "Bash(echo \"exit:$?\")",
-      "Bash(powershell:*)"
+      "Bash(powershell:*)",
+      "Bash(claude mcp *)",
+      "Bash(npx ng *)"
     ]
   }
 }
