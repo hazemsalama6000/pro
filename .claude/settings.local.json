@@ -8,7 +8,10 @@
       "Bash(echo \"exit:$?\")",
       "Bash(powershell:*)",
       "Bash(claude mcp *)",
-      "Bash(npx ng *)"
+      "Bash(npx ng *)",
+      "mcp__magic-ui__21st_magic_component_inspiration",
+      "mcp__magic-ui__21st_magic_component_refiner",
+      "mcp__magic-ui__21st_magic_component_builder"
     ]
   }
 }
